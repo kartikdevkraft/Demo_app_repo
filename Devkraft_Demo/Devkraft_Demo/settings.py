@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Demo_profile',
+    "rest_framework"
 ]
 
 MIDDLEWARE = [
@@ -74,8 +76,15 @@ WSGI_APPLICATION = 'Devkraft_Demo.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'my_django_project_db',               
+        'USER': 'django_user_3',            
+        'PASSWORD': 'Password@1', 
+        'HOST': 'localhost',                  
+        'PORT': '3306',                       
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        }
     }
 }
 
@@ -110,8 +119,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+AUTH_USER_MODEL = 'Demo_profile.User'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
-
 STATIC_URL = 'static/'
