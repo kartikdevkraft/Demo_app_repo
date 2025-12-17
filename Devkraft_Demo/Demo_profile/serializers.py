@@ -9,6 +9,11 @@ class RoleSerializer(ModelSerializer):
         fields = "__all__"
 
 class UserSerializer(ModelSerializer):
+    
+    role = serializers.PrimaryKeyRelatedField(queryset=Role.objects.all(), write_only=True)
+    gender = serializers.CharField(write_only=True)
+    dob = serializers.DateField(write_only=True)
+    
     password = serializers.CharField(
         write_only=True, 
         required=True, 
@@ -21,7 +26,7 @@ class UserSerializer(ModelSerializer):
             'id', 'username', 'first_name', 'last_name', 
             'phone_number', 'is_staff', 'is_active', 
             'created_at', 'updated_at', 
-            'password'
+            'password', 'role','gender','dob' 
         )
 
     def validate_phone_number(self, value):
@@ -31,4 +36,37 @@ class UserSerializer(ModelSerializer):
         
             )
         return value
+    def create(self, validated_data):
+
+        role = validated_data.pop('role')
+        gender = validated_data.pop('gender')
+        dob = validated_data.pop('dob')
+
+        user = User.objects.create_user(**validated_data)
+        
+        UserProfile.objects.create(
+            user=user, 
+            role=role, 
+            gender=gender, 
+            dob=dob
+        )
+        
+        return user
+
     
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    user_name = serializers.ReadOnlyField(source='user.username')
+    role_name = serializers.ReadOnlyField(source='role.name')
+
+    class Meta:
+        model = UserProfile
+        fields = [
+            'id', 'user', 'user_name', 'role', 'role_name', 
+            'gender', 'dob', 'created_at', 'updated_at'
+        ]
+
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField(write_only=True)

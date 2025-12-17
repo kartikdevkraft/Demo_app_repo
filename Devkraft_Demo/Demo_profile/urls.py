@@ -1,8 +1,13 @@
 from rest_framework.routers import DefaultRouter 
-from .views import RoleViewSet, UserViewSet
+from .views import RoleViewSet, UserViewSet,UserProfileViewSet
+from .views import LoginAPIView
+from django.urls import path
 
 route = DefaultRouter()
 route.register('role', RoleViewSet)
 route.register('user', UserViewSet)
+route.register('profile', UserProfileViewSet)
 
-urlpatterns = route.urls
+urlpatterns = [
+    path('login/', LoginAPIView.as_view(), name='login'),
+] + route.urls
