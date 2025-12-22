@@ -47,8 +47,9 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication', # Allows you to still use Admin/Browser
+        'Demo_profile.authentication.ExpiringTokenAuthentication',
+        #'rest_framework.authentication.TokenAuthentication',
+        #'rest_framework.authentication.SessionAuthentication', # Allows you to still use Admin/Browser
     ],
     #'DEFAULT_PERMISSION_CLASSES': [
     ##    'rest_framework.permissions.IsAuthenticated', # This is the "Lock"

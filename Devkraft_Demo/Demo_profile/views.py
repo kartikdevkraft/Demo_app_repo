@@ -22,23 +22,7 @@ class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class =  UserSerializer
 
-    def perform_create(self, serializer):
-
-        validated_data = serializer.validated_data
-        
-        role = validated_data.pop('role')
-        gender = validated_data.pop('gender')
-        dob = validated_data.pop('dob')
-
-        user = User.objects.create_user(**validated_data)
-
-        UserProfile.objects.create(
-            user=user, 
-            role=role, 
-            gender=gender, 
-            dob=dob
-        )
-
+      
 class UserProfileViewSet(ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
