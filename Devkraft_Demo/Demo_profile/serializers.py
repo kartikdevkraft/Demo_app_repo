@@ -13,7 +13,6 @@ class UserSerializer(ModelSerializer):
     role = serializers.PrimaryKeyRelatedField(queryset=Role.objects.all(), write_only=True)
     gender = serializers.CharField(write_only=True)
     dob = serializers.DateField(write_only=True)
-    
     password = serializers.CharField(
         write_only=True, 
         required=True, 
@@ -36,22 +35,8 @@ class UserSerializer(ModelSerializer):
         
             )
         return value
-    def create(self, validated_data):
-
-        role = validated_data.pop('role')
-        gender = validated_data.pop('gender')
-        dob = validated_data.pop('dob')
-
-        user = User.objects.create_user(**validated_data)
-        
-        UserProfile.objects.create(
-            user=user, 
-            role=role, 
-            gender=gender, 
-            dob=dob
-        )
-        
-        return user
+    
+    
 
     
 

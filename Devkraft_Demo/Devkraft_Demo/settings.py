@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Demo_profile',
     "rest_framework",
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'knox'
 ]
 
 # settings.py
@@ -49,9 +50,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication', # Allows you to still use Admin/Browser
     ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated', # This is the "Lock"
-    ],
+    #'DEFAULT_PERMISSION_CLASSES': [
+    ##    'rest_framework.permissions.IsAuthenticated', # This is the "Lock"
+    #], 
 }
 
 MIDDLEWARE = [
